@@ -5,7 +5,7 @@ server {
     server_name app.com;
 
     location / {
-      index app.html;
+      index index.html index.htm index.nginx-debian.html app.html;
     }
 
     location /app {
