@@ -3,7 +3,7 @@ import boto3
 import csv
 
 with open("cluster_resources.csv", 'w', newline='') as csvfile:
-	header = ['Cluster', 'Free CPU units', 'Free memory', 'Free CPU %', 'Free memory %']
+	header = ['Cluster', 'Total CPU units','Total memory','Free CPU units', 'Free memory', 'Free CPU %', 'Free memory %']
 	writer = csv.DictWriter(csvfile, fieldnames = header)
 	writer.writeheader()
 
@@ -58,6 +58,8 @@ with open("cluster_resources.csv", 'w', newline='') as csvfile:
 				percentRAM = format(clusterRAM/allRAM*100, '.2f')
 			row = {
 				'Cluster': currentCluster.split('/')[1],
+				'Total CPU units': str(allCPU),
+				'Total memory':str(allRAM),
 				'Free CPU units': str(clusterCPU),
 				'Free memory': str(clusterRAM),
 				'Free CPU %': str(percentCPU),
