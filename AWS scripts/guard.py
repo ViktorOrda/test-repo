@@ -26,16 +26,22 @@ for page in findingsPages:
 			DetectorId=detector,
 			FindingIds=[currentFindingId]
 		)
-		print("Issue type: "+ info['Findings'][0]['Type'])
-		print("Issue count:  " + str(info['Findings'][0]['Service']['Count']))
-		print("Severity:  " + str(info['Findings'][0]['Severity']))
-		print("Instance Id: "+ info['Findings'][0]['Resource']['InstanceDetails']['InstanceId'])
+		findingType =  info['Findings'][0]['Type']
+		print(findingType)
+		findingCount = str(info['Findings'][0]['Service']['Count'])
+		print(findingCount)
+		severity = str(info['Findings'][0]['Severity'])
+		print(severity)
+		instanceId = info['Findings'][0]['Resource']['InstanceDetails']['InstanceId']
+		print(instanceId)
 		try:
 			for tag in info['Findings'][0]['Resource']['InstanceDetails']['Tags']:
 				if tag['Key'] == 'Name':
-					print("Instance name: "+tag['Value'])
+					instanceName = tag['Value']
+					print(instanceName)
 					break
 		except Exception:
-			print("No name")
+			instanceName = "No name"
+			print(instanceName)
 			continue
 		print('================================================================')
