@@ -3,7 +3,7 @@ import boto3
 import csv
 
 with open("guardduty.csv", 'w', newline='') as csvfile:
-	header = ['Type', 'InstanceId', 'InstanceName', 'Count', 'Severity']
+	header = ['Description','InstanceId', 'InstanceName', 'Count', 'Severity']
 	writer = csv.DictWriter(csvfile, fieldnames = header)
 	writer. writeheader()
 
@@ -17,8 +17,8 @@ with open("guardduty.csv", 'w', newline='') as csvfile:
 		FindingCriteria={
 			'Criterion':{
 				'severity':{
-					'Gt': 0,
-					'Lt': 4
+					'Gte': 7,
+					'Lt': 9
 				}
 			}
 		}
@@ -34,6 +34,7 @@ with open("guardduty.csv", 'w', newline='') as csvfile:
 				FindingIds=[currentFindingId]
 			)
 			findingType =  info['Findings'][0]['Type']
+			findingDesc =  info['Findings'][0]['Description']
 			#print(findingType)
 			findingCount = str(info['Findings'][0]['Service']['Count'])
 			#print(findingCount)
@@ -53,7 +54,8 @@ with open("guardduty.csv", 'w', newline='') as csvfile:
 				continue
 			#print('================================================================')
 			row = {
-				'Type': findingType,
+				#'Type': findingType,
+				'Description': findingDesc,
 				'InstanceId': instanceId,
 				'InstanceName': instanceName,
 				'Count': findingCount,
